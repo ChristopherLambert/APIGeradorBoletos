@@ -21,12 +21,12 @@ namespace APIGerarBoletos.Controllers
         [HttpPost]
         public BoletoOut Post(BoletoIn boletoIn)
         {
-            GeradorItau geradorItau = new GeradorItau();
+            GeradorItauV2 geradorItau = new GeradorItauV2();
 
             if (boletoIn.Teste)
                 geradorItau.GerarBoletoTeste(boletoIn);
-            else
-                geradorItau.GerarBoleto(boletoIn);
+            //else
+            //    geradorItau.GerarBoleto(boletoIn);
 
             return new BoletoOut();
         }
