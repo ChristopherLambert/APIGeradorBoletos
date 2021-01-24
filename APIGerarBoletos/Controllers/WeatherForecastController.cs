@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APIGerarBoletos.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -9,7 +10,7 @@ namespace APIGerarBoletos.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class GeradorController : ControllerBase
+    public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -18,7 +19,7 @@ namespace APIGerarBoletos.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public GeradorController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }

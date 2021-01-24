@@ -1,6 +1,6 @@
 using System;
 
-namespace APIGerarBoletos
+namespace APIGerarBoletos.Models
 {
     public class WeatherForecast
     {

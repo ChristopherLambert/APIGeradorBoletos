@@ -4,11 +4,14 @@
     {
         public string Vencimento { get; set; }
         public string Valor { get; set; }
-        public string Sacado { get; set; }
-        public string Morada { get; set; }
-        public string Bairro { get; set; }
-        public string Cidade { get; set; }
-        public string CEP { get; set; }
-        public string UF { get; set; }
+
+#if DEBUG
+        public bool Teste { get; } = true;
+#else
+        public bool Teste { get; } = false
+#endif
+
+        public CedenteIn Cedente { get; set; }
+        public SacadoIn Sacado { get; set; }
     }
 }
