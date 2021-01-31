@@ -8,7 +8,7 @@ namespace APIGerarBoletos.Services
 {
     public class GeradorItau
     {
-        public void GerarBoleto(BoletoIn boletoIn)
+        public MemoryStream GerarBoleto(BoletoIn boletoIn)
         {
             String vencimento = boletoIn.Vencimento;
             String valorBoleto = boletoIn.Valor;
@@ -40,14 +40,14 @@ namespace APIGerarBoletos.Services
             boleto.EspecieDocumento = especieItau;
             boleto_bancario.CodigoBanco = 341;
 
-            //boleto_bancario.Boleto = boleto;
+            boleto_bancario.Boleto = boleto;
             boleto_bancario.MostrarCodigoCarteira = true;
             //boleto_bancario.Boleto.Valida();
             boleto_bancario.MostrarComprovanteEntrega = true;
 
             try
             {
-                //SaveBoletoPDF(boleto_bancario.MontaBytesPDF());
+                return SaveBoletoPDF(boleto_bancario.MontaBytesPDF());
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ namespace APIGerarBoletos.Services
             }
         }
 
-        public void GerarBoletoTeste(BoletoIn paramsBoleto)
+        public MemoryStream GerarBoletoTeste(BoletoIn paramsBoleto)
         {
             String vencimento = paramsBoleto.Vencimento;
             String valorBoleto = paramsBoleto.Valor;
@@ -109,14 +109,14 @@ namespace APIGerarBoletos.Services
             boleto.EspecieDocumento = especieItau;
             boleto_bancario.CodigoBanco = 341;
 
-            //boleto_bancario.Boleto = boleto;
+            boleto_bancario.Boleto = boleto;
             boleto_bancario.MostrarCodigoCarteira = true;
             //boleto_bancario.Boleto.Valida();
             boleto_bancario.MostrarComprovanteEntrega = true;
 
             try
             {
-                //SaveBoletoPDF(boleto_bancario.MontaBytesPDF());
+                return SaveBoletoPDF(boleto_bancario.MontaBytesPDF());
             }
             catch (Exception ex)
             {
@@ -124,15 +124,17 @@ namespace APIGerarBoletos.Services
             }
         }
 
-        private void SaveBoletoPDF(byte[] boletoPdf)
+        private MemoryStream SaveBoletoPDF(byte[] boletoPdf)
         {
             MemoryStream stream = new MemoryStream();
             stream.Write(boletoPdf, 0, boletoPdf.Length);
 
-            var fileStream = File.Create("C:\\boleto.pdf");
+            //var fileStream = File.Create("C:\\boleto.pdf");
             stream.Seek(0, SeekOrigin.Begin);
-            stream.CopyTo(fileStream);
-            fileStream.Close();
+            //stream.CopyTo(fileStream);
+            //fileStream.Close();
+
+            return stream;
         }
     }
 }

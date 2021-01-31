@@ -1,22 +1,42 @@
 ﻿using APIGerarBoletos.Models;
 using APIGerarBoletos.Services;
+using System;
 using System.Web.Http;
 
 namespace APIGeradorBoletos.Controllers
 {
     public class GeradorController : ApiController //https://localhost:44302/api/Gerador
     {
-        [HttpPost] 
+        [HttpPost]
         public BoletoOut Post(BoletoIn boletoIn)
         {
             GeradorItau geradorItau = new GeradorItau();
+            var boletoOut = new BoletoOut();
 
-            if (boletoIn.Teste)
-                geradorItau.GerarBoletoTeste(boletoIn);
-            else
-               geradorItau.GerarBoleto(boletoIn);
+            try
+            {
+                string MsgError = Validacao.ValidarGeral(boletoIn);
+                if (!string.IsNullOrEmpty(MsgError))
+                {
+                    boletoOut.Sucesso = false;
+                    boletoOut.Mensagem = MsgError;
+                    return boletoOut;
+                }
 
-            return new BoletoOut();
+                if (boletoIn.Teste)
+                    boletoOut.Boleto = geradorItau.GerarBoletoTeste(boletoIn);
+                else
+                    boletoOut.Boleto = geradorItau.GerarBoleto(boletoIn);
+
+                boletoOut.Sucesso = true;
+                return boletoOut;
+            }
+            catch (Exception ex)
+            {
+                boletoOut.Sucesso = false;
+                boletoOut.Mensagem = "Falha Desconhecida: ";
+                return boletoOut;
+            }
         }
     }
 }
