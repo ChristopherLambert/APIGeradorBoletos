@@ -40,7 +40,16 @@ namespace APIGerarBoletos.Services
         {
             string msgError = "CEDENTE: ";
             if (string.IsNullOrEmpty(cedenteIn.CNPJ) && string.IsNullOrEmpty(cedenteIn.CPF))
-                return msgError + "CPF ou CNPJ são obrigatorios ";
+                return msgError + "CPF ou CNPJ são Obrigatórios ";
+
+            if (string.IsNullOrEmpty(cedenteIn.Conta))
+                return msgError + "Conta é Obrigatório ";
+
+            if (string.IsNullOrEmpty(cedenteIn.Agencia))
+                return msgError + "Agencia é Obrigatório ";
+
+            if (string.IsNullOrEmpty(cedenteIn.DigitoConta))
+                return msgError + "Digito da Conta é Obrigatório ";
 
             return string.Empty;
         }
@@ -48,6 +57,9 @@ namespace APIGerarBoletos.Services
         public static string ValidarSacado(SacadoIn sacadoIn)
         {
             string msgError = "SACADO: ";
+            if (string.IsNullOrEmpty(sacadoIn.CNPJ) && string.IsNullOrEmpty(sacadoIn.CPF))
+                return msgError + "CPF ou CNPJ são Obrigatórios ";
+
             return string.Empty;
         }
     }
