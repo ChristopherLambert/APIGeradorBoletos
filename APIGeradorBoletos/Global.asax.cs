@@ -1,5 +1,4 @@
-﻿using APIGeradorBoletos.App_Start;
-using APIGeradorBoletos.Configuration;
+﻿using APIGeradorBoletos.Configuration;
 using Swashbuckle.Application;
 using System;
 using System.Web.Http;
