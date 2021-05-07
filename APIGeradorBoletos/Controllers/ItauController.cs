@@ -5,8 +5,6 @@ using System.Web.Http;
 
 namespace APIGeradorBoletos.Controllers
 {
-    //https://localhost:44302/api/Gerador
-    //https://localhost:44302/swagger/ui/index
     public class ItauController : ApiController
     {
         [HttpPost]

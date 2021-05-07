@@ -139,6 +139,7 @@
     <Compile Include="Models\SacadoIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GeradorBradesco.cs" />
+    <Compile Include="Services\GeradorBase.cs" />
     <Compile Include="Services\GeradorItau.cs" />
     <Compile Include="Services\Validacao.cs" />
   </ItemGroup>

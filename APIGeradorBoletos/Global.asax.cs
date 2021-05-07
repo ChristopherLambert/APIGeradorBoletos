@@ -9,6 +9,8 @@ namespace APIGeradorBoletos
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        //https://localhost:44302/api/Gerador
+        //https://localhost:44302/swagger/ui/index
         protected void Application_Start(object sender, EventArgs e)
         {
             GlobalConfiguration.Configure(RegisterRouter.Register);
