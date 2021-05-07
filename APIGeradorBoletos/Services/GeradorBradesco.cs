@@ -57,18 +57,47 @@ namespace APIGerarBoletos.Services
 
         public MemoryStream GerarBoletoTeste(BoletoIn paramsBoleto)
         {
-            var vencimento = new DateTime(2020, 6, 8);
-            var cedente = new Cedente("00.000.000/0000-00", "Empresa Teste", "0539", "8", "0032463", "9");
+            DateTime vencimento = DateTime.Now.AddDays(10);
 
-            var boleto = new Boleto(vencimento, 5000, "09", "18194", cedente);
-            boleto.NumeroDocumento = "18194";
-            boleto.ValorMulta = 100;
-            boleto.ValorCobrado = 5100;
-            
+            Instrucao_Bradesco item = new Instrucao_Bradesco(9, 5);
+
+            Cedente c = new Cedente("00.000.000/0000-00", "Empresa de Atacado", "1234", "5", "123456", "7");
+            c.Codigo = "13000";
+
+
+            //Carteiras 
+            BoletoNet.Boleto b = new BoletoNet.Boleto(vencimento, 1.00m, "09", "01000000001", c);
+            b.ValorMulta = 0.10m;
+            b.ValorCobrado = 1.10m;
+            b.NumeroDocumento = "01000000001";
+            b.DataVencimento = new DateTime(2015, 09, 12);
+
+            b.Sacado = new Sacado("000.000.000-00", "Nome do seu Cliente ");
+            b.Sacado.Endereco.End = "Endereço do seu Cliente ";
+            b.Sacado.Endereco.Bairro = "Bairro";
+            b.Sacado.Endereco.Cidade = "Cidade";
+            b.Sacado.Endereco.CEP = "00000000";
+            b.Sacado.Endereco.UF = "UF";
+
+            item.Descricao += " após " + item.QuantidadeDias.ToString() + " dias corridos do vencimento.";
+            b.Instrucoes.Add(item); //"Não Receber após o vencimento");
+
+            Instrucao i = new Instrucao(237);
+            i.Descricao = "Nova Instrução";
+            b.Instrucoes.Add(i);
+
+            /* 
+             * A data de vencimento não é usada
+             * Usado para mostrar no lugar da data de vencimento o termo "Contra Apresentação";
+             * Usado na carteira 06
+             */
+
             var boletoBancario = new BoletoBancario();
             boletoBancario.CodigoBanco = 237;
-            boletoBancario.MostrarCodigoCarteira = false;
-            boletoBancario.Boleto = boleto;
+            boletoBancario.MostrarContraApresentacaoNaDataVencimento = true;
+
+            boletoBancario.Boleto = b;
+            boletoBancario.Boleto.Valida();
 
             //return null;
             try
