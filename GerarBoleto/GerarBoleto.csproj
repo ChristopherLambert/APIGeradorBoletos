@@ -37,8 +37,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Boleto.Net, Version=2.0.1.4, Culture=neutral, PublicKeyToken=53630c3583b7ed5c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Boleto.Net.2.1.0.860\lib\Boleto.Net.dll</HintPath>
+    <Reference Include="Boleto.Net, Version=2.0.1.5, Culture=neutral, PublicKeyToken=53630c3583b7ed5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Boleto.Net.2.1.0.909\lib\Boleto.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
@@ -155,7 +155,7 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NReco.PdfGenerator, Version=1.1.12.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
-      <HintPath>..\packages\Boleto.Net.2.1.0.860\lib\NReco.PdfGenerator.dll</HintPath>
+      <HintPath>..\packages\Boleto.Net.2.1.0.909\lib\NReco.PdfGenerator.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Compression.Base, Version=18.3460.0.51, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.Compression.Base.18.3.0.51\lib\net46\Syncfusion.Compression.Base.dll</HintPath>
