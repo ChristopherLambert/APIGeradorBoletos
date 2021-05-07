@@ -5,10 +5,13 @@ using System.Web.Http;
 
 namespace APIGeradorBoletos.Controllers
 {
-    public class GeradorController : ApiController //https://localhost:44302/api/Gerador
+    //https://localhost:44302/api/Gerador
+    //https://localhost:44302/swagger/ui/index
+    public class ItauController : ApiController
     {
         [HttpPost]
-        public BoletoOut Post(BoletoIn boletoIn)
+        //[ActionName("PostItau")]
+        public BoletoOut PostItau(BoletoIn boletoIn)
         {
             GeradorItau geradorItau = new GeradorItau();
             var boletoOut = new BoletoOut();
