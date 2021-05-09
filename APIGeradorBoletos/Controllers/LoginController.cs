@@ -1,6 +1,7 @@
 ﻿using APIGerarBoletos.Models;
 using APIGerarBoletos.Services;
 using System;
+using System.Web.Configuration;
 using System.Web.Http;
 
 namespace APIGeradorBoletos.Controllers
@@ -10,7 +11,12 @@ namespace APIGeradorBoletos.Controllers
         [HttpPost]
         public string Login(string user, string password)
         {
-            return "Logado com Sucesso";
+            string userAPI = WebConfigurationManager.AppSettings["userAPI"];
+            string passAPI = WebConfigurationManager.AppSettings["passAPI"];
+
+            if (user.Equals(userAPI) && passAPI.Equals(passAPI))
+                return "Logado com Sucesso";
+            else return "Usuario ou Senha Incorretos";
         }
     }
 }
