@@ -9,6 +9,7 @@
         public string Endereco { get; set; }
         public string Nome { get; set; }
         public string Agencia { get; set; }
+        public string DigitoAgencia { get; set; }
         public string Conta { get; set; }
         public string DigitoConta { get; set; }
     }

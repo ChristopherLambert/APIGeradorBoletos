@@ -10,44 +10,42 @@ namespace APIGerarBoletos.Services
     {
         public MemoryStream GerarBoleto(BoletoIn boletoIn)
         {
-            String vencimento = boletoIn.Vencimento;
-            String valorBoleto = boletoIn.Valor;
-            String numeroDocumento = "B20005446";
+            DateTime vencimento = Convert.ToDateTime(boletoIn.Vencimento);
+            Instrucao_Bradesco item = new Instrucao_Bradesco(9, 5);
 
-            Cedente cedente = new Cedente(boletoIn.Cedente.CPF,
-            boletoIn.Cedente.Nome, boletoIn.Cedente.Agencia, boletoIn.Cedente.Conta, boletoIn.Cedente.DigitoConta);
-            cedente.Codigo = Convert.ToInt32(boletoIn.Cedente.Codigo).ToString();
+            Cedente cedente = new Cedente(boletoIn.Cedente.CNPJ, boletoIn.Cedente.Nome,
+                boletoIn.Cedente.Agencia, boletoIn.Cedente.DigitoAgencia, boletoIn.Cedente.Conta, boletoIn.Cedente.DigitoConta);
+            cedente.Codigo = boletoIn.Cedente.Codigo;
 
-            Boleto boleto = new Boleto(Convert.ToDateTime(vencimento),
-                   Convert.ToDecimal(valorBoleto),
-                   "109", boletoIn.Cedente.NumeroBoleto, cedente);
-            boleto.NumeroDocumento = numeroDocumento;
+            //Carteiras 
+            BoletoNet.Boleto b = new BoletoNet.Boleto(vencimento, 
+                Convert.ToDecimal(boletoIn.Valor), "09", boletoIn.Numero, cedente);
 
-            Sacado sacado = new Sacado(boletoIn.Sacado.CPF, boletoIn.Sacado.Nome);
-            boleto.Sacado = sacado;
-            boleto.Sacado.Endereco.End = boletoIn.Sacado.Endereco;
-            boleto.Sacado.Endereco.Bairro = boletoIn.Sacado.Bairro;
-            boleto.Sacado.Endereco.Cidade = boletoIn.Sacado.Cidade;
-            boleto.Sacado.Endereco.CEP = boletoIn.Sacado.CEP;
-            boleto.Sacado.Endereco.UF = boletoIn.Sacado.UF;
+            b.ValorMulta = 0.10m;
+            b.ValorCobrado = 1.10m;
+            b.NumeroDocumento = boletoIn.Numero;
+            //b.DataVencimento = new DateTime(2015, 09, 12);
 
-            Instrucao_Itau instrucao = new Instrucao_Itau();
-            instrucao.Descricao = "Não Receber após o vencimento";
-            boleto.Instrucoes.Add(instrucao);
+            b.Sacado = new Sacado(boletoIn.Sacado.CNPJ,boletoIn.Sacado.Nome);
+            b.Sacado.Endereco.End = boletoIn.Sacado.Endereco;
+            b.Sacado.Endereco.Bairro = boletoIn.Sacado.Bairro;
+            b.Sacado.Endereco.Cidade = boletoIn.Sacado.Cidade;
+            b.Sacado.Endereco.CEP = boletoIn.Sacado.CEP;
+            b.Sacado.Endereco.UF = boletoIn.Sacado.UF;
 
-            EspecieDocumento_Itau especieItau = new EspecieDocumento_Itau("99");
-            BoletoBancario boleto_bancario = new BoletoBancario();
-            boleto.EspecieDocumento = especieItau;
-            boleto_bancario.CodigoBanco = 341;
+            item.Descricao += " após " + item.QuantidadeDias.ToString() + " dias corridos do vencimento.";
+            b.Instrucoes.Add(item); //"Não Receber após o vencimento");
 
-            boleto_bancario.Boleto = boleto;
-            boleto_bancario.MostrarCodigoCarteira = true;
-            //boleto_bancario.Boleto.Valida();
-            boleto_bancario.MostrarComprovanteEntrega = true;
+            var boletoBancario = new BoletoBancario();
+            boletoBancario.CodigoBanco = 237;
+            boletoBancario.MostrarContraApresentacaoNaDataVencimento = true;
+
+            boletoBancario.Boleto = b;
+            boletoBancario.Boleto.Valida();
 
             try
             {
-                return SaveBoletoPDF(boleto_bancario.MontaBytesPDF());
+                return SaveBoletoPDF(boletoBancario.MontaBytesPDF());
             }
             catch (Exception ex)
             {
