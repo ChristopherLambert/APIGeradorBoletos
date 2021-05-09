@@ -56,12 +56,11 @@ namespace APIGerarBoletos.Services
         public MemoryStream GerarBoletoTeste(BoletoIn paramsBoleto)
         {
             DateTime vencimento = DateTime.Now.AddDays(10);
-
             Instrucao_Bradesco item = new Instrucao_Bradesco(9, 5);
 
-            Cedente c = new Cedente("00.000.000/0000-00", "Empresa de Atacado", "1234", "5", "123456", "7");
+            Cedente c = new Cedente("00.000.000/0000-00", "Empresa de Atacado",
+                "1234", "5", "123456", "7");
             c.Codigo = "13000";
-
 
             //Carteiras 
             BoletoNet.Boleto b = new BoletoNet.Boleto(vencimento, 1.00m, "09", "01000000001", c);
@@ -84,20 +83,16 @@ namespace APIGerarBoletos.Services
             i.Descricao = "Nova Instrução";
             b.Instrucoes.Add(i);
 
-            /* 
-             * A data de vencimento não é usada
+            /* A data de vencimento não é usada
              * Usado para mostrar no lugar da data de vencimento o termo "Contra Apresentação";
-             * Usado na carteira 06
-             */
+             * Usado na carteira 06 */
 
             var boletoBancario = new BoletoBancario();
             boletoBancario.CodigoBanco = 237;
             boletoBancario.MostrarContraApresentacaoNaDataVencimento = true;
-
             boletoBancario.Boleto = b;
             boletoBancario.Boleto.Valida();
 
-            //return null;
             try
             {
                 //return SaveBoletoPDF(boleto_bancario.MontaBytesPDF(), false);
